@@ -1,9 +1,14 @@
 package com.example.BookReviewApplication.Models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +24,15 @@ public class Book {
 	private String title;
 	private String author;
 	private String genre;
+	@OneToMany(mappedBy = "book",cascade=CascadeType.ALL)
+	private List<Review> reviews=new ArrayList<>();
+	
+	public List<Review> getReviews() {
+		return reviews;
+	}
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
 	public int getId() {
 		return id;
 	}
@@ -45,7 +59,9 @@ public class Book {
 	}
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", genre=" + genre + "]";
+		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", genre=" + genre + ", reviews="
+				+ reviews + "]";
 	}
+	
 	
 }
